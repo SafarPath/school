@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paramount Grammar School - Learn to Lead</title>
+    <!-- Load Poppins from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Alpine.js for interactivity (Mobile Menu, Animations) -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        /* FOUC fix for Alpine.js */
+        [x-cloak] { display: none !important; }
+        /* Define a utility class for the responsive video container */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script>
+        // Tailwind CSS Configuration with Custom Color Palette and Font
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pgs-navy': '#002B5C',    /* Navy Blue */
+                        'pgs-crimson': '#C8102E', /* Crimson Red */
+                        'pgs-beige': '#FDF5E6',   /* Light Beige */
+                        'pgs-green': '#1E7145',   /* Green */
+                        'pgs-gold': '#FFB81C',    /* Golden Yellow */
+                    },
+                    fontFamily: {
+                        // Use Poppins as the primary sans-serif font
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-sans bg-pgs-beige text-pgs-navy antialiased">
+
+    <!-- Navigation Bar (x-data for Alpine.js mobile menu and scroll effect) -->
+    <header class="sticky top-0 z-50 transition duration-300" 
+            x-data="{ open: false, isScrolled: false }" 
+            @scroll.window="isScrolled = (window.scrollY > 50)" 
+            :class="{'bg-white shadow-xl': isScrolled, 'bg-white/95 backdrop-blur-sm shadow-md': !isScrolled}">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo/School Name -->
+            <div class="flex items-center space-x-2">
+                <span class="text-3xl font-black text-pgs-crimson uppercase tracking-wider">PGS</span>
+                <span class="hidden sm:inline text-xl font-bold text-pgs-navy">Paramount Grammar School</span>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8 font-semibold text-pgs-navy">
+                <a href="#hero" class="hover:text-pgs-crimson transition duration-300">Home</a>
+                <a href="#about" class="hover:text-pgs-crimson transition duration-300">About</a>
+                <a href="#features" class="hover:text-pgs-crimson transition duration-300">Why Us</a>
+                <a href="#academics" class="hover:text-pgs-crimson transition duration-300">Academics</a>
+                <a href="#gallery" class="hover:text-pgs-crimson transition duration-300">Gallery</a>
+                <a href="#contact" class="px-5 py-2 bg-pgs-gold text-pgs-navy font-bold rounded-full hover:bg-pgs-crimson hover:text-white transition duration-300 shadow-lg">Contact Us</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button @click="open = !open" class="md:hidden text-pgs-navy focus:outline-none">
+                <svg x-show="!open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <svg x-show="open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu (x-transition for subtle motion) -->
+        <div x-show="open" x-collapse x-transition class="md:hidden bg-pgs-navy shadow-inner" x-cloak>
+            <nav class="flex flex-col space-y-2 p-4 text-white font-medium">
+                <a href="#hero" @click="open = false" class="py-2 hover:bg-pgs-crimson transition duration-300 rounded-lg px-3">Home</a>
+                <a href="#about" @click="open = false" class="py-2 hover:bg-pgs-crimson transition duration-300 rounded-lg px-3">About</a>
+                <a href="#features" @click="open = false" class="py-2 hover:bg-pgs-crimson transition duration-300 rounded-lg px-3">Why Us</a>
+                <a href="#academics" @click="open = false" class="py-2 hover:bg-pgs-crimson transition duration-300 rounded-lg px-3">Academics</a>
+                <a href="#gallery" @click="open = false" class="py-2 hover:bg-pgs-crimson transition duration-300 rounded-lg px-3">Gallery</a>
+                <a href="#contact" @click="open = false" class="py-2 hover:bg-pgs-crimson transition duration-300 rounded-lg px-3">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 1. Hero Banner: Learn to Lead -->
+    <section id="hero" class="relative py-28 md:py-64 overflow-hidden bg-pgs-navy">
+        <!-- Background Image Placeholder with Dark Overlay -->
+        <div class="absolute inset-0 bg-cover bg-center"
+             style="background-image: url('https://placehold.co/1920x800/002B5C/FDF5E6?text=Paramount+School+Campus+Placeholder');">
+        </div>
+        <!-- Gradient Overlay for Contrast -->
+        <div class="absolute inset-0 bg-gradient-to-t from-pgs-navy/90 to-pgs-navy/70 backdrop-blur-sm"></div>
+
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h1 class="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter mb-6 text-pgs-gold drop-shadow-xl"
+                x-data="{ visible: false }"
+                x-init="setTimeout(() => { visible = true }, 500)"
+                x-show="visible"
+                x-transition:enter.duration.1000ms.opacity.scale.105>
+                Paramount Grammar School
+            </h1>
+            <!-- Typewriter effect for slogan - Premium Animation -->
+            <p class="h-10 text-2xl sm:text-4xl md:text-5xl font-extralight italic text-pgs-beige drop-shadow-md"
+               x-data="{ text: 'Learn to Lead', currentText: '', index: 0 }"
+               x-init="$watch('currentText', () => { if (currentText.length < text.length) setTimeout(() => { currentText += text[index]; index++; }, 100); }); setTimeout(() => { currentText = text[0]; index = 1; }, 1500);">
+                " <span x-text="currentText" class="border-r-4 border-pgs-crimson pr-1 animate-pulse"></span> "
+            </p>
+            <div class="mt-16">
+                <a href="#contact" class="inline-block px-10 py-4 bg-pgs-crimson text-white font-bold text-xl rounded-full shadow-2xl hover:bg-pgs-gold hover:text-pgs-navy transition duration-500 transform hover:scale-110">
+                    Enroll Now & Join PGS
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. About Section: Education, Discipline, Leadership -->
+    <section id="about" class="py-24 bg-pgs-beige">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-extrabold text-center text-pgs-crimson mb-16 border-b-4 border-pgs-gold inline-block pb-1">Who We Are</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Text Content -->
+                <div class="space-y-8">
+                    <p class="text-xl leading-relaxed text-gray-700">
+                        Paramount Grammar School (PGS) in Sadiqabad is more than an institution; it's a commitment to transformative education. Our mission is to instill **academic excellence**, cultivate **unwavering discipline**, and build strong **leadership qualities** in every student who walks through our doors.
+                    </p>
+                    <p class="text-xl leading-relaxed text-pgs-navy font-semibold bg-pgs-gold/20 p-4 rounded-lg border-l-4 border-pgs-gold shadow-md">
+                        We blend cutting-edge teaching methodologies with a deep emphasis on character development. Our students graduate ready to embrace life's greatest challenges and become ethical leaders of tomorrow.
+                    </p>
+                    <div class="flex flex-wrap gap-6 pt-4 text-lg">
+                        <span class="flex items-center space-x-2 text-pgs-navy font-medium">
+                            <svg class="w-6 h-6 text-pgs-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18s-3.332.477-4.5 1.253"></path></svg>
+                            <span>Rigorous Curriculum</span>
+                        </span>
+                        <span class="flex items-center space-x-2 text-pgs-navy font-medium">
+                            <svg class="w-6 h-6 text-pgs-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14v6m-3-3h6M6 10h2m4 0h6m-6 0h.01M12 18h.01"></path></svg>
+                            <span>Character Building</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Image Placeholder -->
+                <div class="rounded-2xl overflow-hidden shadow-2xl transition duration-500 transform hover:scale-[1.02] border-4 border-pgs-navy">
+                    <img src="https://placehold.co/600x400/002B5C/FDF5E6?text=PGS+Entrance+or+Students" 
+                         alt="Image of Paramount Grammar School Campus or Students" 
+                         class="w-full h-auto object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Section: Why Choose Paramount Grammar School -->
+    <section id="features" class="py-24 bg-pgs-navy text-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-extrabold text-center text-pgs-gold mb-16">Why Paramount?</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+                
+                <!-- Feature 1 -->
+                <div class="text-center p-6 bg-pgs-navy/80 rounded-xl shadow-lg border-t-4 border-pgs-gold transition duration-500 hover:bg-pgs-crimson/90">
+                    <svg class="w-10 h-10 text-pgs-gold mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7-8l-1 4m17-4l-1 4"></path></svg>
+                    <h3 class="text-xl font-bold mb-2">Dedicated Faculty</h3>
+                    <p class="text-sm text-gray-300">Highly qualified and experienced educators committed to student success.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="text-center p-6 bg-pgs-navy/80 rounded-xl shadow-lg border-t-4 border-pgs-gold transition duration-500 hover:bg-pgs-crimson/90">
+                    <svg class="w-10 h-10 text-pgs-gold mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14"></path></svg>
+                    <h3 class="text-xl font-bold mb-2">Modern Facilities</h3>
+                    <p class="text-sm text-gray-300">State-of-the-art labs, classrooms, and sports grounds for holistic learning.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="text-center p-6 bg-pgs-navy/80 rounded-xl shadow-lg border-t-4 border-pgs-gold transition duration-500 hover:bg-pgs-crimson/90">
+                    <svg class="w-10 h-10 text-pgs-gold mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <h3 class="text-xl font-bold mb-2">Leadership Focus</h3>
+                    <p class="text-sm text-gray-300">Programs designed to develop initiative, confidence, and responsible citizenship.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="text-center p-6 bg-pgs-navy/80 rounded-xl shadow-lg border-t-4 border-pgs-gold transition duration-500 hover:bg-pgs-crimson/90">
+                    <svg class="w-10 h-10 text-pgs-gold mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a1.998 1.998 0 01-.296-.057M12 11h.01M17 12H7"></path></svg>
+                    <h3 class="text-xl font-bold mb-2">Proven Results</h3>
+                    <p class="text-sm text-gray-300">Consistently achieving top results in regional and national board examinations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Academics Section: Card Layout with SVG Icons -->
+    <section id="academics" class="py-24 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-extrabold text-center text-pgs-navy mb-16 border-b-4 border-pgs-crimson inline-block pb-1">Our Academic Programs</h2>
+            <p class="text-center text-xl max-w-4xl mx-auto mb-10 text-gray-700">We offer specialized, quality-focused programs ensuring comprehensive learning and outstanding performance in all educational stages.</p>
+
+            <div class="grid md:grid-cols-3 gap-10">
+                
+                <!-- Card 1: Primary Education -->
+                <div class="bg-white p-8 rounded-2xl shadow-xl border-b-8 border-pgs-crimson transition duration-500 transform hover:shadow-2xl hover:-translate-y-2">
+                    <div class="text-5xl mb-4 text-pgs-crimson">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18s-3.332.477-4.5 1.253"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-pgs-navy">Foundation (Primary)</h3>
+                    <p class="text-gray-700">A strong, activity-based foundation in core subjects (English, Math, Science) to develop essential literacy and numeracy from an early age.</p>
+                </div>
+
+                <!-- Card 2: Secondary School (Matric) -->
+                <div class="bg-white p-8 rounded-2xl shadow-xl border-b-8 border-pgs-green transition duration-500 transform hover:shadow-2xl hover:-translate-y-2">
+                    <div class="text-5xl mb-4 text-pgs-green">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-2.414-2.414A1 1 0 0015.586 6H7a2 2 0 00-2 2v11a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-pgs-navy">Matriculation (High School)</h3>
+                    <p class="text-gray-700">Specialized Science and Arts groups with intense board preparation, model exams, and revision camps for guaranteed top results.</p>
+                </div>
+
+                <!-- Card 3: Co-Curricular & Skills -->
+                <div class="bg-white p-8 rounded-2xl shadow-xl border-b-8 border-pgs-gold transition duration-500 transform hover:shadow-2xl hover:-translate-y-2">
+                    <div class="text-5xl mb-4 text-pgs-gold">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-pgs-navy">Skill Development</h3>
+                    <p class="text-gray-700">Mandatory programs in public speaking, critical thinking, sportsmanship, and IT literacy to ensure all-round student development.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Video Gallery -->
+    <section id="gallery" class="py-24 bg-pgs-beige">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-extrabold text-center text-pgs-crimson mb-16 border-b-4 border-pgs-gold inline-block pb-1">School Life & Achievements</h2>
+            <p class="text-center text-xl max-w-3xl mx-auto mb-12 text-gray-700">Experience the vibrant life and celebrated achievements of Paramount Grammar School.</p>
+
+            <div class="grid md:grid-cols-3 gap-10">
+                
+                <!-- Video 1: Annual Day/Event -->
+                <div class="rounded-2xl overflow-hidden shadow-2xl border-4 border-white transition duration-500 hover:shadow-3xl hover:border-pgs-gold">
+                    <div class="video-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/qJqKfVFNs68" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <p class="p-4 text-center font-semibold text-lg text-white bg-pgs-navy">Annual Sports Day Highlights</p>
+                </div>
+
+                <!-- Video 2: Student Interview/Classroom -->
+                <div class="rounded-2xl overflow-hidden shadow-2xl border-4 border-white transition duration-500 hover:shadow-3xl hover:border-pgs-gold">
+                    <div class="video-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/G-ac-kUAU9Y" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <p class="p-4 text-center font-semibold text-lg text-white bg-pgs-navy">Academic Performance Ceremony</p>
+                </div>
+
+                <!-- Video 3: School Tour/Message -->
+                <div class="rounded-2xl overflow-hidden shadow-2xl border-4 border-white transition duration-500 hover:shadow-3xl hover:border-pgs-gold">
+                    <div class="video-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/0WAJVVlgRnI" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <p class="p-4 text-center font-semibold text-lg text-white bg-pgs-navy">Principal's Address & Vision</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Contact Section - Premium Form Layout -->
+    <section id="contact" class="py-24 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-extrabold text-center text-pgs-navy mb-16 border-b-4 border-pgs-crimson inline-block pb-1">Get In Touch</h2>
+            
+            <div class="max-w-6xl mx-auto grid lg:grid-cols-3 bg-white rounded-3xl shadow-2xl overflow-hidden">
+                
+                <!-- Contact Form (Conceptual) -->
+                <div class="lg:col-span-2 p-8 md:p-12">
+                    <h3 class="text-3xl font-bold text-pgs-crimson mb-6">Send Us a Message</h3>
+                    <form action="#" method="POST" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your Name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-pgs-gold focus:border-pgs-gold transition duration-300 shadow-sm" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="you@example.com" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-pgs-gold focus:border-pgs-gold transition duration-300 shadow-sm" required>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Your Inquiry</label>
+                            <textarea id="message" name="message" rows="4" placeholder="How can we help you?" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-pgs-gold focus:border-pgs-gold transition duration-300 shadow-sm" required></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full px-6 py-3 bg-pgs-navy text-white font-bold rounded-lg shadow-xl hover:bg-pgs-crimson transition duration-300 transform hover:scale-[1.01]">
+                                Submit Inquiry
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Info Sidebar -->
+                <div class="p-8 md:p-12 bg-pgs-navy text-pgs-beige space-y-8 lg:space-y-10">
+                    <h3 class="text-3xl font-bold text-pgs-gold mb-4 border-b border-pgs-gold/50 pb-2">Reach Us Directly</h3>
+                    
+                    <div class="space-y-4">
+                        <p class="font-bold text-lg">Email</p>
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-6 h-6 text-pgs-crimson" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 4v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7"></path></svg>
+                            <a href="mailto:paramount1133@gmail.com" class="hover:text-pgs-gold transition duration-300">paramount1133@gmail.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <p class="font-bold text-lg">WhatsApp / Call</p>
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-6 h-6 text-pgs-crimson" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            <a href="tel:+923006748452" class="hover:text-pgs-gold transition duration-300">+92 300 6748452</a>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <p class="font-bold text-lg">Social Media</p>
+                        <div class="flex space-x-4">
+                            <!-- YouTube -->
+                            <a href="https://www.youtube.com/@paramountgrammarhighschool345" target="_blank" class="text-pgs-crimson hover:text-pgs-gold transition duration-300 transform hover:scale-110">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.615 3.197a2.766 2.766 0 00-1.956-1.956C16.488 1 12 1 12 1s-4.488 0-5.659.241A2.766 2.766 0 004.384 3.197 28.18 28.18 0 004 12c0 1.25.074 2.477.228 3.682a2.766 2.766 0 001.956 1.956C7.512 17 12 17 12 17s4.488 0 5.659-.241a2.766 2.766 0 001.956-1.956c.154-1.205.228-2.432.228-3.682s-.074-2.477-.228-3.682zM10 15V9l5.5 3-5.5 3z"></path></svg>
+                            </a>
+                            <!-- Facebook -->
+                            <a href="https://www.facebook.com/p/Paramount-Grammar-High-Schools-BoysGirls-Sadiqabad-100063985385926/" target="_blank" class="text-pgs-crimson hover:text-pgs-gold transition duration-300 transform hover:scale-110">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12c0 5.143 3.792 9.42 8.75 9.873V15.42H7.495V12h2.255V9.33c0-2.239 1.357-3.473 3.375-3.473 0.966 0 1.83.072 2.078.104v2.39h-1.427c-1.129 0-1.347.535-1.347 1.32V12h2.697l-.46 3.42h-2.237v6.453C18.208 21.42 22 17.143 22 12c0-5.523-4.477-10-10-10z"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-pgs-navy text-pgs-beige py-10">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-lg mb-3">&copy; 2024 Paramount Grammar School, Sadiqabad. All Rights Reserved.</p>
+            <p class="text-sm">Nurturing Minds, Building Leaders. | <span class="text-pgs-gold font-semibold">Learn to Lead</span></p>
+        </div>
+    </footer>
+
+</body>
+</html>
