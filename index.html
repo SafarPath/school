@@ -3,106 +3,312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SafarPath - Schools Directory</title>
+    <title>SafarPath - Educational Portfolios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #0c2461 0%, #1e3799 50%, #4a69bd 100%);
             min-height: 100vh;
-            padding: 20px;
+            overflow-x: hidden;
+            perspective: 1000px;
         }
-        
+
+        .universe {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
         }
-        
+
         .header {
             text-align: center;
-            color: white;
-            margin-bottom: 40px;
-            padding: 20px;
+            margin-bottom: 60px;
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
         }
-        
-        .header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateX(5deg); }
+            50% { transform: translateY(-20px) rotateX(5deg); }
         }
-        
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
+
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-size: 4.5rem;
+            color: #fff;
+            text-shadow: 0 0 30px rgba(255,255,255,0.5),
+                         0 0 60px rgba(78, 115, 223, 0.8);
+            margin-bottom: 20px;
+            letter-spacing: 3px;
         }
-        
-        .schools-grid {
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: #d1d8e0;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .galaxy {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
         }
-        
-        .school-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
+
+        .planet {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px 30px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-decoration: none;
-            color: #333;
+            border: 1px solid rgba(255,255,255,0.2);
+            transform-style: preserve-3d;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3),
+                        inset 0 1px 0 rgba(255,255,255,0.2);
         }
-        
-        .school-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+
+        .planet::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+            transition: all 0.6s ease;
         }
-        
-        .school-icon {
-            font-size: 3rem;
+
+        .planet:hover {
+            transform: translateY(-20px) rotateX(10deg) scale(1.05);
+            box-shadow: 0 40px 80px rgba(78, 115, 223, 0.4),
+                        inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+
+        .planet:hover::before {
+            transform: rotate(60deg) scale(1.2);
+        }
+
+        .planet-icon {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            display: block;
+            transform: translateZ(50px);
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+
+        .planet-name {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: #fff;
             margin-bottom: 15px;
-            color: #667eea;
+            transform: translateZ(40px);
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
-        
-        .school-name {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
+
+        .planet-description {
+            color: #d1d8e0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            transform: translateZ(30px);
         }
-        
-        .school-description {
-            color: #666;
-            line-height: 1.5;
+
+        .visit-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            transform: translateZ(40px);
+            box-shadow: 0 10px 30px rgba(238, 90, 36, 0.4);
+            text-decoration: none;
+            display: inline-block;
+            letter-spacing: 1px;
+        }
+
+        .visit-btn:hover {
+            transform: translateZ(40px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(238, 90, 36, 0.6);
+            background: linear-gradient(135deg, #ff7979, #ff6b6b);
+        }
+
+        .constellation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: nebulaFloat 20s infinite alternate;
+        }
+
+        .nebula-1 {
+            width: 300px;
+            height: 300px;
+            background: #4a69bd;
+            top: 10%;
+            left: 10%;
+        }
+
+        .nebula-2 {
+            width: 400px;
+            height: 400px;
+            background: #6a89cc;
+            bottom: 10%;
+            right: 10%;
+        }
+
+        @keyframes nebulaFloat {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, -50px) scale(1.1); }
+        }
+
+        .moon {
+            position: fixed;
+            top: 10%;
+            right: 10%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle at 30% 30%, #fff, #dcdde1);
+            border-radius: 50%;
+            box-shadow: 0 0 50px rgba(255,255,255,0.5);
+            animation: moonOrbit 30s linear infinite;
+        }
+
+        @keyframes moonOrbit {
+            0% { transform: rotate(0deg) translateX(200px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 3rem;
+            }
+            
+            .galaxy {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .planet {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="universe" id="universe"></div>
+    <div class="constellation">
+        <div class="nebula nebula-1"></div>
+        <div class="nebula nebula-2"></div>
+    </div>
+    <div class="moon"></div>
+
     <div class="container">
         <div class="header">
-            <h1>🏫 SafarPath Schools</h1>
-            <p>Explore our network of educational institutions</p>
+            <h1 class="main-title">SafarPath Universe</h1>
+            <p class="subtitle">Explore Educational Galaxies - Where Learning Meets Innovation</p>
         </div>
-        
-        <div class="schools-grid">
-            <a href="paramount/" class="school-card">
-                <div class="school-icon">📚</div>
-                <div class="school-name">Paramount</div>
-                <div class="school-description">Click to visit Paramount School</div>
-            </a>
-            
-            <a href="lgs/" class="school-card">
-                <div class="school-icon">📚</div>
-                <div class="school-name">LGS</div>
-                <div class="school-description">Click to visit LGS School</div>
-            </a>
+
+        <div class="galaxy">
+            <div class="planet">
+                <span class="planet-icon">🏫</span>
+                <h2 class="planet-name">Paramount Academy</h2>
+                <p class="planet-description">A prestigious institution shaping future leaders through excellence in education and character building.</p>
+                <a href="paramount/" class="visit-btn">Explore Galaxy</a>
+            </div>
+
+            <div class="planet">
+                <span class="planet-icon">🌌</span>
+                <h2 class="planet-name">LGS Constellation</h2>
+                <p class="planet-description">Where stars are born and dreams take flight in an atmosphere of academic brilliance.</p>
+                <a href="lgs/" class="visit-btn">Discover World</a>
+            </div>
+
+            <div class="planet">
+                <span class="planet-icon">🚀</span>
+                <h2 class="planet-name">Future Institute</h2>
+                <p class="planet-description">Pioneering the next generation of innovators and thinkers in a cosmic learning environment.</p>
+                <a href="#" class="visit-btn">Launch Journey</a>
+            </div>
         </div>
     </div>
+
+    <script>
+        // Create stars
+        const universe = document.getElementById('universe');
+        for (let i = 0; i < 200; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = Math.random() * 3 + 'px';
+            star.style.height = star.style.width;
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 5 + 's';
+            universe.appendChild(star);
+        }
+
+        // 3D tilt effect
+        document.addEventListener('mousemove', (e) => {
+            const planets = document.querySelectorAll('.planet');
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            
+            planets.forEach(planet => {
+                planet.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
+        });
+
+        // Parallax effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.header');
+            parallax.style.transform = `translateY(${scrolled * 0.4}px) rotateX(5deg)`;
+        });
+    </script>
 </body>
 </html>
