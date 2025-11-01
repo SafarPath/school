@@ -83,7 +83,7 @@
             margin-top: 60px;
         }
 
-        .planet {
+        .school-card {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(20px);
             border-radius: 25px;
@@ -96,9 +96,12 @@
             overflow: hidden;
             box-shadow: 0 25px 50px rgba(0,0,0,0.3),
                         inset 0 1px 0 rgba(255,255,255,0.2);
+            text-decoration: none;
+            display: block;
+            color: inherit;
         }
 
-        .planet::before {
+        .school-card::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -110,17 +113,19 @@
             transition: all 0.6s ease;
         }
 
-        .planet:hover {
+        .school-card:hover {
             transform: translateY(-20px) rotateX(10deg) scale(1.05);
             box-shadow: 0 40px 80px rgba(78, 115, 223, 0.4),
                         inset 0 1px 0 rgba(255,255,255,0.3);
+            color: inherit;
+            text-decoration: none;
         }
 
-        .planet:hover::before {
+        .school-card:hover::before {
             transform: rotate(60deg) scale(1.2);
         }
 
-        .planet-icon {
+        .school-icon {
             font-size: 4rem;
             margin-bottom: 25px;
             display: block;
@@ -128,7 +133,7 @@
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
         }
 
-        .planet-name {
+        .school-name {
             font-family: 'Cinzel', serif;
             font-size: 2.2rem;
             color: #fff;
@@ -137,7 +142,7 @@
             text-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        .planet-description {
+        .school-description {
             color: #d1d8e0;
             font-size: 1.1rem;
             line-height: 1.6;
@@ -162,7 +167,7 @@
             letter-spacing: 1px;
         }
 
-        .visit-btn:hover {
+        .school-card:hover .visit-btn {
             transform: translateZ(40px) scale(1.1);
             box-shadow: 0 15px 40px rgba(238, 90, 36, 0.6);
             background: linear-gradient(135deg, #ff7979, #ff6b6b);
@@ -224,6 +229,31 @@
             100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
         }
 
+        /* School-specific colors */
+        .paramount-card {
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .paramount-card:hover {
+            box-shadow: 0 40px 80px rgba(255, 107, 107, 0.4);
+        }
+
+        .lgs-card {
+            border-left: 4px solid #4ecdc4;
+        }
+
+        .lgs-card:hover {
+            box-shadow: 0 40px 80px rgba(78, 205, 196, 0.4);
+        }
+
+        .future-card {
+            border-left: 4px solid #45b7d1;
+        }
+
+        .future-card:hover {
+            box-shadow: 0 40px 80px rgba(69, 183, 209, 0.4);
+        }
+
         @media (max-width: 768px) {
             .main-title {
                 font-size: 3rem;
@@ -234,7 +264,7 @@
                 gap: 30px;
             }
             
-            .planet {
+            .school-card {
                 padding: 30px 20px;
             }
         }
@@ -255,26 +285,29 @@
         </div>
 
         <div class="galaxy">
-            <div class="planet">
-                <span class="planet-icon">🏫</span>
-                <h2 class="planet-name">Paramount Academy</h2>
-                <p class="planet-description">A prestigious institution shaping future leaders through excellence in education and character building.</p>
-                <a href="paramount/" class="visit-btn">Explore Galaxy</a>
-            </div>
+            <!-- Paramount School -->
+            <a href="paramount/" class="school-card paramount-card">
+                <span class="school-icon">🏫</span>
+                <h2 class="school-name">Paramount Academy</h2>
+                <p class="school-description">A prestigious institution shaping future leaders through excellence in education and character building.</p>
+                <div class="visit-btn">Explore Campus</div>
+            </a>
 
-            <div class="planet">
-                <span class="planet-icon">🌌</span>
-                <h2 class="planet-name">LGS Constellation</h2>
-                <p class="planet-description">Where stars are born and dreams take flight in an atmosphere of academic brilliance.</p>
-                <a href="lgs/" class="visit-btn">Discover World</a>
-            </div>
+            <!-- LGS School -->
+            <a href="lgs/" class="school-card lgs-card">
+                <span class="school-icon">🌌</span>
+                <h2 class="school-name">LGS Constellation</h2>
+                <p class="school-description">Where stars are born and dreams take flight in an atmosphere of academic brilliance.</p>
+                <div class="visit-btn">Discover World</div>
+            </a>
 
-            <div class="planet">
-                <span class="planet-icon">🚀</span>
-                <h2 class="planet-name">Future Institute</h2>
-                <p class="planet-description">Pioneering the next generation of innovators and thinkers in a cosmic learning environment.</p>
-                <a href="#" class="visit-btn">Launch Journey</a>
-            </div>
+            <!-- Future School (Example) -->
+            <a href="future/" class="school-card future-card">
+                <span class="school-icon">🚀</span>
+                <h2 class="school-name">Future Institute</h2>
+                <p class="school-description">Pioneering the next generation of innovators and thinkers in a cosmic learning environment.</p>
+                <div class="visit-btn">Launch Journey</div>
+            </a>
         </div>
     </div>
 
@@ -294,20 +327,21 @@
 
         // 3D tilt effect
         document.addEventListener('mousemove', (e) => {
-            const planets = document.querySelectorAll('.planet');
+            const cards = document.querySelectorAll('.school-card');
             const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
             const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
             
-            planets.forEach(planet => {
-                planet.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            cards.forEach(card => {
+                card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateY(-10px)`;
             });
         });
 
-        // Parallax effect
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallax = document.querySelector('.header');
-            parallax.style.transform = `translateY(${scrolled * 0.4}px) rotateX(5deg)`;
+        // Reset transform when mouse leaves
+        document.addEventListener('mouseleave', () => {
+            const cards = document.querySelectorAll('.school-card');
+            cards.forEach(card => {
+                card.style.transform = 'translateY(-10px)';
+            });
         });
     </script>
 </body>
