@@ -81,16 +81,6 @@
             color: #666;
             line-height: 1.5;
         }
-        
-        .no-schools {
-            text-align: center;
-            color: white;
-            font-size: 1.2rem;
-            padding: 40px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-        }
     </style>
 </head>
 <body>
@@ -101,37 +91,17 @@
         </div>
         
         <div class="schools-grid">
-            <?php
-            // Get all directories (schools)
-            $directories = array_filter(glob('*'), 'is_dir');
+            <a href="paramount/" class="school-card">
+                <div class="school-icon">📚</div>
+                <div class="school-name">Paramount</div>
+                <div class="school-description">Click to visit Paramount School</div>
+            </a>
             
-            // Remove hidden directories and the current directory
-            $directories = array_filter($directories, function($dir) {
-                return $dir != '.' && $dir != '..' && $dir[0] != '.';
-            });
-            
-            if (count($directories) > 0) {
-                foreach ($directories as $directory) {
-                    $schoolName = ucfirst($directory);
-                    $schoolUrl = $directory . '/';
-                    
-                    echo "
-                    <a href='$schoolUrl' class='school-card'>
-                        <div class='school-icon'>📚</div>
-                        <div class='school-name'>$schoolName</div>
-                        <div class='school-description'>Click to visit $schoolName School</div>
-                    </a>
-                    ";
-                }
-            } else {
-                echo "
-                <div class='no-schools'>
-                    <h3>No schools found</h3>
-                    <p>School directories will appear here once they are created.</p>
-                </div>
-                ";
-            }
-            ?>
+            <a href="lgs/" class="school-card">
+                <div class="school-icon">📚</div>
+                <div class="school-name">LGS</div>
+                <div class="school-description">Click to visit LGS School</div>
+            </a>
         </div>
     </div>
 </body>
